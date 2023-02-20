@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { IMovies } from "../api";
+import { IMovies, ITv } from "../api";
 import { imagePath, latest } from "../utils";
 
 const Slider = styled(motion.div)`
@@ -48,7 +48,7 @@ const boxVar = {
 };
 
 const Info = styled(motion.div)`
-  width: 200px;
+  width: 252px;
   height: 5px;
   background-color: ${(props) => props.theme.black.lighter};
   bottom: 0;
@@ -198,7 +198,7 @@ export function TvList({ name, number, input, key }: INumber) {
   const { scrollY } = useScroll();
 
   const history = useHistory();
-  const { data, isLoading } = useQuery<IMovies>([name, key + ""], input);
+  const { data, isLoading } = useQuery<ITv>([name, key + ""], input);
 
   const movieMatch = useRouteMatch<{ movieId: string }>("/tv/:movieId");
 
@@ -260,7 +260,7 @@ export function TvList({ name, number, input, key }: INumber) {
                   bgPhoto={imagePath(movie.backdrop_path || "")}
                 >
                   <Info transition={{ type: "tween" }} variants={infoVar}>
-                    {movie.title}
+                    {movie.name}
                   </Info>
                 </Box>
               ))}
@@ -324,12 +324,10 @@ export function TvList({ name, number, input, key }: INumber) {
                       )}`,
                     }}
                   />
-                  <BigTitle>{movieClick.title}</BigTitle>
+                  <BigTitle>{movieClick.name}</BigTitle>
                   <BigOverview>{movieClick.overview}</BigOverview>
-                  <BigDate>{movieClick.release_date}</BigDate>
-                  <BigRating>
-                    Rating: {movieClick.vote_average.toFixed(1)}/10
-                  </BigRating>
+                  <BigDate>{movieClick.first_air_date}</BigDate>
+                  <BigRating>{movieClick.origin_country}</BigRating>
                 </>
               )}
             </BigMovie>

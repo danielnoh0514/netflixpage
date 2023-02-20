@@ -50,7 +50,7 @@ const boxVar = {
 };
 
 const Info = styled(motion.div)`
-  width: 200px;
+  width: 252px;
   height: 5px;
   background-color: ${(props) => props.theme.black.lighter};
   bottom: 0;
