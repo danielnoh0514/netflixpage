@@ -10,6 +10,7 @@ import { imagePath, latest } from "../utils";
 const Slider = styled(motion.div)`
   position: relative;
   width: 100%;
+  height: 10vh;
 `;
 
 const Rows = styled(motion.div)`
@@ -20,7 +21,7 @@ const Rows = styled(motion.div)`
 `;
 
 const Box = styled(motion.div)<{ bgPhoto: string }>`
-  height: 160px;
+  height: 140px;
   background-color: white;
   color: red;
   background-image: url(${(props) => props.bgPhoto});
@@ -34,6 +35,7 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
     transform-origin: center right;
   }
 `;
+
 const boxVar = {
   start: { scale: 1 },
   hover: {
@@ -87,25 +89,27 @@ const Overlay = styled(motion.div)`
   bottom: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
   opacity: 0;
+
+  background-color: rgba(0, 0, 0, 0.5);
 `;
 
 const BigMovie = styled(motion.div)`
   position: absolute;
-
   width: 450px;
   height: 500px;
   border-radius: 20px;
-  overflow: hidden;
+  overflow: auto;
   margin: 0 auto;
   right: 0;
   left: 0;
+
   background-color: #181818;
 `;
 
 const BigCover = styled.div`
-  width: 100%;
+  position: relative;
+  width: 500px;
   background-size: cover;
   background-position: center center;
   height: 50%;
@@ -128,9 +132,10 @@ const BigOverview = styled.p`
 `;
 
 const Button = styled(motion.button)`
-  position: relative;
+  position: absolute;
+  z-index: 1;
   width: 50px;
-  height: 150px;
+  height: 140px;
   opacity: 0;
   background-color: rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(0, 0, 0, 0.5);
@@ -142,20 +147,6 @@ const btnVar = {
 };
 
 const Svg = styled(motion.svg)``;
-
-const Span = styled.span`
-  color: white;
-  font-size: 40px;
-
-  position: absolute;
-  &.first {
-    top: 530px;
-  }
-  &.second {
-    top: 2000px;
-    left: 0;
-  }
-`;
 
 const BigDate = styled.div`
   position: absolute;
@@ -175,19 +166,20 @@ const BigRating = styled.span`
 interface INumber {
   number: number;
   input: any;
-  key: number;
+  value: number;
   name: string;
   sliderHeight: number;
 }
 
-const Wrapper = styled.div`
-  overflow: hidden;
+const Button1 = styled.button`
+  position: absolute;
 `;
 
-export function TvList({ name, number, input, key, sliderHeight }: INumber) {
+export function TvList({ name, number, input, value, sliderHeight }: INumber) {
   const [slide, setSlide] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const toggleLeaving = () => setLeaving((prev) => !prev);
+  const history = useHistory();
   const onBoxClick = (movieId: number) => {
     history.push(`/tv/${movieId}`);
   };
@@ -197,14 +189,16 @@ export function TvList({ name, number, input, key, sliderHeight }: INumber) {
   const overlayClick = () => history.push("/tv");
   const { scrollY } = useScroll();
 
-  const history = useHistory();
-  const { data, isLoading } = useQuery<ITv>([name, key + ""], input);
+  const { data } = useQuery<ITv>([name, value + ""], input);
 
   const movieMatch = useRouteMatch<{ movieId: string }>("/tv/:movieId");
 
   const movieClick =
     movieMatch?.params.movieId &&
-    data?.results.find((movie) => movie.id + "" === movieMatch.params.movieId);
+    data?.results.find((movie) => movie.id === +movieMatch.params.movieId);
+
+  console.log(movieClick, "HOLAHOLAHOLA");
+
   const [back, setBack] = useState(false);
 
   const slideFunctionBack = () => {
@@ -231,12 +225,30 @@ export function TvList({ name, number, input, key, sliderHeight }: INumber) {
   return (
     <div>
       <Slider style={{ top: sliderHeight }} className="first">
+        <AnimatePresence>
+          <Button
+            style={{ top: number, left: 0 }}
+            className={"first"}
+            variants={btnVar}
+            whileHover={"hover"}
+            onClick={() => slideFunctionBack()}
+          >
+            <Svg
+              fill={"white"}
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 320 512"
+            >
+              <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" />
+            </Svg>
+          </Button>
+        </AnimatePresence>
         <AnimatePresence
           custom={back}
           initial={false}
           onExitComplete={toggleLeaving}
         >
           <Rows
+            style={{ top: number }}
             custom={back}
             key={slide}
             variants={slideVar}
@@ -265,58 +277,45 @@ export function TvList({ name, number, input, key, sliderHeight }: INumber) {
                 </Box>
               ))}
           </Rows>
+          <AnimatePresence>
+            <Button
+              style={{ top: number, right: 0 }}
+              className="btn1"
+              variants={btnVar}
+              whileHover={"hover"}
+              onClick={() => slideFunctionFront()}
+            >
+              <Svg
+                fill={"white"}
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 320 512"
+              >
+                <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
+              </Svg>
+            </Button>
+          </AnimatePresence>
         </AnimatePresence>
       </Slider>
 
       <AnimatePresence>
-        <Button
-          style={{ top: number, left: 0 }}
-          className={"first"}
-          variants={btnVar}
-          whileHover={"hover"}
-          onClick={() => slideFunctionBack()}
-        >
-          <Svg
-            fill={"white"}
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 320 512"
-          >
-            <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" />
-          </Svg>
-        </Button>
-        <Button
-          style={{ top: number, left: 1430 }}
-          className="btn1"
-          variants={btnVar}
-          whileHover={"hover"}
-          onClick={() => slideFunctionFront()}
-        >
-          <Svg
-            fill={"white"}
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 320 512"
-          >
-            <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
-          </Svg>
-        </Button>
-      </AnimatePresence>
-
-      <AnimatePresence>
         {movieMatch ? (
-          <div style={{ width: 100 }}>
+          <>
             <Overlay
               onClick={overlayClick}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
             />
-            <BigMovie
-              layoutId={movieMatch.params.movieId}
-              style={{
-                top: scrollY.get() + 150,
-              }}
-            >
-              {movieClick && (
-                <>
+
+            {movieClick ? (
+              <>
+                <BigMovie
+                  layoutId={movieMatch?.params.movieId}
+                  initial={{ scale: 0 }}
+                  animate={{ opacity: 1, scale: 1, zIndex: 5000 }}
+                  exit={{ scale: 0 }}
+                  style={{
+                    top: scrollY.get() + 150,
+                  }}
+                >
                   <BigCover
                     style={{
                       backgroundImage: `linear-gradient(to top, black,transparent), url(${imagePath(
@@ -327,11 +326,10 @@ export function TvList({ name, number, input, key, sliderHeight }: INumber) {
                   <BigTitle>{movieClick.name}</BigTitle>
                   <BigOverview>{movieClick.overview}</BigOverview>
                   <BigDate>{movieClick.first_air_date}</BigDate>
-                  <BigRating>{movieClick.origin_country}</BigRating>
-                </>
-              )}
-            </BigMovie>
-          </div>
+                </BigMovie>
+              </>
+            ) : null}
+          </>
         ) : null}
       </AnimatePresence>
     </div>

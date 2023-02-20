@@ -71,11 +71,11 @@ function Home() {
           </Banner>
           <Span style={{ top: -5 }}>Now Playing</Span>
           <MovieList
-            name={"nowplaying"}
+            name={"nowplayingMovie"}
             sliderHeight={0}
             number={0}
             input={getMovies}
-            key={0}
+            value={0}
           />
 
           <Span style={{ top: 85 }}>Latest</Span>
@@ -84,7 +84,7 @@ function Home() {
             number={90}
             sliderHeight={90}
             input={getLastestMovies}
-            key={1}
+            value={1}
           />
 
           <Span style={{ top: 175 }}>Top Rated</Span>
@@ -93,7 +93,7 @@ function Home() {
             name={"toprated"}
             number={180}
             input={getUpcomingMovies}
-            key={2}
+            value={2}
           />
         </>
       )}

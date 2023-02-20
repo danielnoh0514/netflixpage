@@ -78,19 +78,19 @@ function Tv() {
           <Span style={{ top: -5 }}>Upcoming</Span>
           <TvList
             sliderHeight={0}
-            name={"nowplaying"}
+            name={"nowplayingTv"}
             number={0}
             input={getLatestTv}
-            key={0}
+            value={0}
           />
 
           <Span style={{ top: 85 }}>Latest</Span>
           <TvList
             sliderHeight={90}
-            name={"latest"}
+            name={"latestTv"}
             number={90}
             input={getAiringTv}
-            key={1}
+            value={1}
           />
 
           <Span style={{ top: 175 }}>Popular</Span>
@@ -99,16 +99,16 @@ function Tv() {
             name={"popular"}
             number={180}
             input={getPopularTv}
-            key={2}
+            value={2}
           />
 
           <Span style={{ top: 265 }}>Top Rated</Span>
           <TvList
             sliderHeight={270}
-            name={"toprated"}
+            name={"topratedTv"}
             number={270}
             input={getTopRatedTv}
-            key={2}
+            value={2}
           />
         </>
       )}
