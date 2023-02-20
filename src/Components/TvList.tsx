@@ -129,12 +129,12 @@ const BigOverview = styled.p`
 `;
 
 const Button = styled(motion.button)`
-  position: absolute;
+  position: relative;
   width: 50px;
-  height: 100px;
+  height: 150px;
   opacity: 0;
-  background-color: red;
-  border: 1px solid red;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.5);
 `;
 
 const btnVar = {
@@ -270,7 +270,7 @@ export function TvList({ name, number, input, key }: INumber) {
 
       <AnimatePresence>
         <Button
-          style={{ top: number + 750, left: 0 }}
+          style={{ top: number, left: 0 }}
           className={"first"}
           variants={btnVar}
           whileHover={"hover"}
@@ -285,7 +285,7 @@ export function TvList({ name, number, input, key }: INumber) {
           </Svg>
         </Button>
         <Button
-          style={{ top: number + 750, right: 0 }}
+          style={{ top: number, left: 1430 }}
           className="btn1"
           variants={btnVar}
           whileHover={"hover"}
@@ -306,8 +306,8 @@ export function TvList({ name, number, input, key }: INumber) {
           <div style={{ width: 100 }}>
             <Overlay
               onClick={overlayClick}
-              exit={{ opacity: 0 }}
               animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
             />
             <BigMovie
               layoutId={movieMatch.params.movieId}

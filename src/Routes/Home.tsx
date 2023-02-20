@@ -69,26 +69,21 @@ function Home() {
             <Title>{data?.results[0].title}</Title>
             <Overview>{data?.results[0].overview}</Overview>
           </Banner>
-          <Span style={{ top: 80 }}>Now Playing</Span>
-          <MovieList
-            name={"nowplaying"}
-            number={100}
-            input={getMovies}
-            key={0}
-          />
+          <Span style={{ top: 0 }}>Now Playing</Span>
+          <MovieList name={"nowplaying"} number={0} input={getMovies} key={0} />
 
-          <Span style={{ top: 380 }}>Latest</Span>
+          <Span style={{ top: 200 }}>Latest</Span>
           <MovieList
             name={"latest"}
-            number={400}
+            number={200}
             input={getLastestMovies}
             key={1}
           />
 
-          <Span style={{ top: 680 }}>Top Rated</Span>
+          <Span style={{ top: 400 }}>Top Rated</Span>
           <MovieList
             name={"toprated"}
-            number={700}
+            number={400}
             input={getUpcomingMovies}
             key={2}
           />
