@@ -133,7 +133,7 @@ const BigOverview = styled.p`
 const Button = styled(motion.button)`
   position: absolute;
   width: 50px;
-  height: 100px;
+  height: 150px;
   opacity: 0;
   background-color: red;
   border: 1px solid red;
@@ -186,6 +186,7 @@ export function MovieList({ name, number, input, key }: INumber) {
   const [slide, setSlide] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const toggleLeaving = () => setLeaving((prev) => !prev);
+  const history = useHistory();
   const onBoxClick = (movieId: number) => {
     history.push(`/movies/${movieId}`);
   };
@@ -195,7 +196,6 @@ export function MovieList({ name, number, input, key }: INumber) {
   const overlayClick = () => history.push("/");
   const { scrollY } = useScroll();
 
-  const history = useHistory();
   const { data, isLoading } = useQuery<IMovies>([name, key + ""], input);
 
   const movieMatch = useRouteMatch<{ movieId: string }>("/movies/:movieId");
@@ -268,7 +268,7 @@ export function MovieList({ name, number, input, key }: INumber) {
 
       <AnimatePresence>
         <Button
-          style={{ top: number + 750, left: 0 }}
+          style={{ top: number + 790, left: 0 }}
           className={"first"}
           variants={btnVar}
           whileHover={"hover"}
@@ -301,7 +301,7 @@ export function MovieList({ name, number, input, key }: INumber) {
 
       <AnimatePresence>
         {movieMatch ? (
-          <div>
+          <>
             <Overlay
               onClick={overlayClick}
               exit={{ opacity: 0 }}
@@ -331,7 +331,7 @@ export function MovieList({ name, number, input, key }: INumber) {
                 </>
               )}
             </BigMovie>
-          </div>
+          </>
         ) : null}
       </AnimatePresence>
     </div>
