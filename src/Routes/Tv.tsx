@@ -79,7 +79,7 @@ function Tv() {
           <TvList
             sliderHeight={0}
             name={"nowplaying"}
-            number={100}
+            number={0}
             input={getLatestTv}
             key={0}
           />
@@ -89,7 +89,7 @@ function Tv() {
             <TvList
               sliderHeight={90}
               name={"latest"}
-              number={400}
+              number={90}
               input={getAiringTv}
               key={1}
             />
@@ -99,7 +99,7 @@ function Tv() {
           <TvList
             sliderHeight={180}
             name={"popular"}
-            number={700}
+            number={100}
             input={getPopularTv}
             key={2}
           />
@@ -108,7 +108,7 @@ function Tv() {
           <TvList
             sliderHeight={270}
             name={"toprated"}
-            number={1000}
+            number={270}
             input={getTopRatedTv}
             key={2}
           />
