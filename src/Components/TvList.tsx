@@ -20,8 +20,7 @@ const Rows = styled(motion.div)`
 `;
 
 const Box = styled(motion.div)<{ bgPhoto: string }>`
-  width: 252px;
-  height: 150px;
+  height: 160px;
   background-color: white;
   color: red;
   background-image: url(${(props) => props.bgPhoto});
