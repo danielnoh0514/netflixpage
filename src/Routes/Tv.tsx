@@ -84,22 +84,20 @@ function Tv() {
             key={0}
           />
 
-          <div>
-            <Span style={{ top: 85 }}>Latest</Span>
-            <TvList
-              sliderHeight={90}
-              name={"latest"}
-              number={90}
-              input={getAiringTv}
-              key={1}
-            />
-          </div>
+          <Span style={{ top: 85 }}>Latest</Span>
+          <TvList
+            sliderHeight={90}
+            name={"latest"}
+            number={90}
+            input={getAiringTv}
+            key={1}
+          />
 
           <Span style={{ top: 175 }}>Popular</Span>
           <TvList
             sliderHeight={180}
             name={"popular"}
-            number={100}
+            number={180}
             input={getPopularTv}
             key={2}
           />
