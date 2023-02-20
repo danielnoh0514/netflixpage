@@ -20,8 +20,7 @@ const Rows = styled(motion.div)`
 `;
 
 const Box = styled(motion.div)<{ bgPhoto: string }>`
-  width: 252px;
-  height: 150px;
+  height: 160px;
   background-color: white;
   color: red;
   background-image: url(${(props) => props.bgPhoto});
@@ -202,6 +201,7 @@ export function MovieList({ name, number, input, key, sliderHeight }: INumber) {
   const movieClick =
     movieMatch?.params.movieId &&
     data?.results.find((movie) => movie.id + "" === movieMatch.params.movieId);
+  console.log(movieClick);
   const [back, setBack] = useState(false);
 
   const slideFunctionBack = () => {
@@ -314,6 +314,7 @@ export function MovieList({ name, number, input, key, sliderHeight }: INumber) {
             >
               {movieClick && (
                 <>
+                  hi
                   <BigCover
                     style={{
                       backgroundImage: `linear-gradient(to top, black,transparent), url(${imagePath(
