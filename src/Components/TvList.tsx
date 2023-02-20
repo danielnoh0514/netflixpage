@@ -15,9 +15,7 @@ const Slider = styled(motion.div)`
 const Rows = styled(motion.div)`
   position: absolute;
   width: 100%;
-
   display: grid;
-
   grid-template-columns: repeat(6, 1fr);
 `;
 
@@ -148,7 +146,7 @@ const Svg = styled(motion.svg)``;
 
 const Span = styled.span`
   color: white;
-  font-size: 30px;
+  font-size: 40px;
 
   position: absolute;
   &.first {
@@ -182,23 +180,27 @@ interface INumber {
   name: string;
 }
 
-export function MovieList({ name, number, input, key }: INumber) {
+const Wrapper = styled.div`
+  overflow: hidden;
+`;
+
+export function TvList({ name, number, input, key }: INumber) {
   const [slide, setSlide] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const toggleLeaving = () => setLeaving((prev) => !prev);
   const onBoxClick = (movieId: number) => {
-    history.push(`/movies/${movieId}`);
+    history.push(`/tv/${movieId}`);
   };
 
   const offset = 6;
 
-  const overlayClick = () => history.push("/");
+  const overlayClick = () => history.push("/tv");
   const { scrollY } = useScroll();
 
   const history = useHistory();
   const { data, isLoading } = useQuery<IMovies>([name, key + ""], input);
 
-  const movieMatch = useRouteMatch<{ movieId: string }>("/movies/:movieId");
+  const movieMatch = useRouteMatch<{ movieId: string }>("/tv/:movieId");
 
   const movieClick =
     movieMatch?.params.movieId &&

@@ -6,7 +6,9 @@ import styled from "styled-components";
 
 const Nav = styled(motion.div)`
   width: 100%;
+  height: 15%;
   position: fixed;
+  z-index: 1;
   background-color: black;
   display: flex;
   align-items: center;
@@ -18,6 +20,8 @@ const Nav = styled(motion.div)`
 `;
 
 const Col = styled.div`
+  height: 100%;
+
   display: flex;
   align-items: center;
 `;
@@ -25,19 +29,19 @@ const Col = styled.div`
 const Items = styled.ul`
   display: flex;
   align-items: center;
+  width: 70%;
 `;
 
 const Item = styled.li`
   margin-left: 30px;
-  font-size: 15px;
+  font-size: auto;
   color: white;
   position: relative;
 `;
 
 const Logo = styled(motion.svg)`
-  margin-right: 50px;
-  width: 95px;
-  height: 25px;
+  margin-right: 3%;
+  width: 100px;
   fill: ${(props) => props.theme.red};
 `;
 

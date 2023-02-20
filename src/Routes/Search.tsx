@@ -13,8 +13,8 @@ const Loader = styled.div`
 `;
 
 const Box = styled(motion.div)<{ bgPhoto: string }>`
-  width: 530px;
-  height: 300px;
+  width: 200px;
+  height: 100px;
   background-color: white;
   color: red;
   background-image: url(${(props) => props.bgPhoto});
@@ -57,39 +57,40 @@ export interface IMovies {
 const Wrapper = styled.div`
   margin-top: 500px;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
 `;
 
 const BigMovie = styled(motion.div)`
   position: absolute;
-  width: 40vw;
-  height: 80vh;
+  z-index: 1;
+  width: 450px;
+  height: 500px;
   border-radius: 20px;
   overflow: hidden;
   margin: 0 auto;
   right: 0;
   left: 0;
-  background-color: ${(props) => props.theme.black.lighter};
+  background-color: #181818;
 `;
 
 const BigCover = styled.div`
   width: 100%;
   background-size: cover;
   background-position: center center;
-  height: 500px;
+  height: 50%;
 `;
 
 const BigTitle = styled.h3`
   position: relative;
-  top: -150px;
+  top: -10%;
   margin-left: 30px;
   color: ${(props) => props.theme.white.lighter};
-  font-size: 50px;
+  font-size: 100%;
 `;
 
 const BigOverview = styled.p`
   position: relative;
-
+  font-size: 70%;
   width: 60%;
   margin-left: 30px;
 `;
@@ -107,6 +108,7 @@ const Overlay = styled(motion.div)`
 const Slider = styled(motion.div)`
   top: -20px;
   position: relative;
+  margin-left: 23.5px;
 `;
 
 const Rows = styled(motion.div)`
@@ -128,7 +130,7 @@ const slideVar = {
 const Button = styled(motion.button)`
   position: absolute;
   width: 50px;
-  height: 300px;
+  height: 100px;
   top: 480px;
   opacity: 0;
   background-color: rgba(0, 0, 0, 0.5);
@@ -173,26 +175,10 @@ function Search() {
     movieMatch?.params.id &&
     data?.results.find((movie) => movie.id + "" === movieMatch.params.id);
 
-  {
-    data?.results.map((movie) =>
-      movie.backdrop_path ? (
-        <Box
-          layoutId={movie.id + ""}
-          onClick={() => onBoxClick(movie.id)}
-          variants={boxVar}
-          whileHover={"hover"}
-          initial={"start"}
-          key={movie.id}
-          transition={{ type: "tween" }}
-          bgPhoto={imagePath(movie.backdrop_path)}
-        ></Box>
-      ) : null
-    );
-  }
   const [slide, setSlide] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const toggleLeaving = () => setLeaving((prev) => !prev);
-  const offset = 6;
+  const offset = 5;
   const [back, setBack] = useState(false);
   const slideFunctionBack = () => {
     setBack(false);

@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { RecoilRoot, useRecoilValue } from "recoil";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
-
+import { ReactQueryDevtools } from "react-query-devtools";
 import App from "./App";
 import { theme } from "./theme";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
