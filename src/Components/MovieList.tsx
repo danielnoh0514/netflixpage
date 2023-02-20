@@ -309,7 +309,7 @@ export function MovieList({ name, number, input, key, sliderHeight }: INumber) {
             <BigMovie
               layoutId={movieMatch?.params.movieId}
               style={{
-                top: scrollY.get() + 100,
+                top: scrollY.get() + 150,
               }}
             >
               {movieClick && (
