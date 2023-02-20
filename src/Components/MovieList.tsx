@@ -15,9 +15,7 @@ const Slider = styled(motion.div)`
 const Rows = styled(motion.div)`
   position: absolute;
   width: 100%;
-
   display: grid;
-
   grid-template-columns: repeat(6, 1fr);
 `;
 
@@ -180,9 +178,10 @@ interface INumber {
   input: any;
   key: number;
   name: string;
+  sliderHeight: number;
 }
 
-export function MovieList({ name, number, input, key }: INumber) {
+export function MovieList({ name, number, input, key, sliderHeight }: INumber) {
   const [slide, setSlide] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const toggleLeaving = () => setLeaving((prev) => !prev);
@@ -228,7 +227,7 @@ export function MovieList({ name, number, input, key }: INumber) {
 
   return (
     <div>
-      <Slider style={{ top: number }} className="first">
+      <Slider style={{ top: sliderHeight }} className="first">
         <AnimatePresence
           custom={back}
           initial={false}

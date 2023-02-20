@@ -75,8 +75,9 @@ function Tv() {
             <Title>{data?.results[0].name}</Title>
             <Overview>{data?.results[0].overview}</Overview>
           </Banner>
-          <Span style={{ top: 80 }}>Upcoming</Span>
+          <Span style={{ top: -5 }}>Upcoming</Span>
           <TvList
+            sliderHeight={0}
             name={"nowplaying"}
             number={100}
             input={getLatestTv}
@@ -84,15 +85,28 @@ function Tv() {
           />
 
           <div>
-            <Span style={{ top: 380 }}>Latest</Span>
-            <TvList name={"latest"} number={400} input={getAiringTv} key={1} />
+            <Span style={{ top: 85 }}>Latest</Span>
+            <TvList
+              sliderHeight={90}
+              name={"latest"}
+              number={400}
+              input={getAiringTv}
+              key={1}
+            />
           </div>
 
-          <Span style={{ top: 680 }}>Popular</Span>
-          <TvList name={"popular"} number={700} input={getPopularTv} key={2} />
-
-          <Span style={{ top: 980 }}>Top Rated</Span>
+          <Span style={{ top: 175 }}>Popular</Span>
           <TvList
+            sliderHeight={180}
+            name={"popular"}
+            number={700}
+            input={getPopularTv}
+            key={2}
+          />
+
+          <Span style={{ top: 265 }}>Top Rated</Span>
+          <TvList
+            sliderHeight={270}
             name={"toprated"}
             number={1000}
             input={getTopRatedTv}

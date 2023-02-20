@@ -69,21 +69,29 @@ function Home() {
             <Title>{data?.results[0].title}</Title>
             <Overview>{data?.results[0].overview}</Overview>
           </Banner>
-          <Span style={{ top: 0 }}>Now Playing</Span>
-          <MovieList name={"nowplaying"} number={0} input={getMovies} key={0} />
+          <Span style={{ top: -5 }}>Now Playing</Span>
+          <MovieList
+            name={"nowplaying"}
+            sliderHeight={0}
+            number={0}
+            input={getMovies}
+            key={0}
+          />
 
-          <Span style={{ top: 200 }}>Latest</Span>
+          <Span style={{ top: 85 }}>Latest</Span>
           <MovieList
             name={"latest"}
-            number={200}
+            number={90}
+            sliderHeight={90}
             input={getLastestMovies}
             key={1}
           />
 
-          <Span style={{ top: 400 }}>Top Rated</Span>
+          <Span style={{ top: 175 }}>Top Rated</Span>
           <MovieList
+            sliderHeight={180}
             name={"toprated"}
-            number={400}
+            number={180}
             input={getUpcomingMovies}
             key={2}
           />

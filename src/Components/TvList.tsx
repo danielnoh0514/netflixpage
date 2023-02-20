@@ -178,13 +178,14 @@ interface INumber {
   input: any;
   key: number;
   name: string;
+  sliderHeight: number;
 }
 
 const Wrapper = styled.div`
   overflow: hidden;
 `;
 
-export function TvList({ name, number, input, key }: INumber) {
+export function TvList({ name, number, input, key, sliderHeight }: INumber) {
   const [slide, setSlide] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const toggleLeaving = () => setLeaving((prev) => !prev);
@@ -230,7 +231,7 @@ export function TvList({ name, number, input, key }: INumber) {
 
   return (
     <div>
-      <Slider style={{ top: number }} className="first">
+      <Slider style={{ top: sliderHeight }} className="first">
         <AnimatePresence
           custom={back}
           initial={false}
