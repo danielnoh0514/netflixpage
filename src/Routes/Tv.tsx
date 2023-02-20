@@ -21,7 +21,7 @@ import { imagePath } from "../utils";
 const Span = styled.span`
   color: white;
   font-size: 35px;
-  position: absolute;
+  position: relative;
 `;
 
 const Wrapper = styled.div`
@@ -75,7 +75,7 @@ function Tv() {
             <Title>{data?.results[0].name}</Title>
             <Overview>{data?.results[0].overview}</Overview>
           </Banner>
-          <Span style={{ top: 790 }}>Upcoming</Span>
+          <Span style={{ top: 80 }}>Upcoming</Span>
           <TvList
             name={"nowplaying"}
             number={100}
@@ -84,14 +84,14 @@ function Tv() {
           />
 
           <div>
-            <Span style={{ top: 1100 }}>Latest</Span>
+            <Span style={{ top: 380 }}>Latest</Span>
             <TvList name={"latest"} number={400} input={getAiringTv} key={1} />
           </div>
 
-          <Span style={{ top: 1400 }}>Popular</Span>
+          <Span style={{ top: 680 }}>Popular</Span>
           <TvList name={"popular"} number={700} input={getPopularTv} key={2} />
 
-          <Span style={{ top: 1700 }}>Top Rated</Span>
+          <Span style={{ top: 980 }}>Top Rated</Span>
           <TvList
             name={"toprated"}
             number={1000}

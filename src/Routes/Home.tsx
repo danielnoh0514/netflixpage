@@ -13,10 +13,9 @@ import { MovieList } from "../Components/MovieList";
 import { imagePath } from "../utils";
 
 const Span = styled.span`
+  position: relative;
   color: white;
   font-size: 35px;
-
-  position: absolute;
 `;
 
 const Wrapper = styled.div`
@@ -70,7 +69,7 @@ function Home() {
             <Title>{data?.results[0].title}</Title>
             <Overview>{data?.results[0].overview}</Overview>
           </Banner>
-          <Span style={{ top: 790 }}>Now Playing</Span>
+          <Span style={{ top: 80 }}>Now Playing</Span>
           <MovieList
             name={"nowplaying"}
             number={100}
@@ -78,7 +77,7 @@ function Home() {
             key={0}
           />
 
-          <Span style={{ top: 1100 }}>Latest</Span>
+          <Span style={{ top: 380 }}>Latest</Span>
           <MovieList
             name={"latest"}
             number={400}
@@ -86,7 +85,7 @@ function Home() {
             key={1}
           />
 
-          <Span style={{ top: 1400 }}>Top Rated</Span>
+          <Span style={{ top: 680 }}>Top Rated</Span>
           <MovieList
             name={"toprated"}
             number={700}

@@ -108,7 +108,7 @@ const BigMovie = styled(motion.div)`
 `;
 
 const BigCover = styled.div`
-  width: 100%;
+  width: 500px;
   background-size: cover;
   background-position: center center;
   height: 50%;
@@ -301,14 +301,14 @@ export function MovieList({ name, number, input, key }: INumber) {
 
       <AnimatePresence>
         {movieMatch ? (
-          <div style={{ width: 100 }}>
+          <div>
             <Overlay
               onClick={overlayClick}
               exit={{ opacity: 0 }}
               animate={{ opacity: 1 }}
             />
             <BigMovie
-              layoutId={movieMatch.params.movieId}
+              layoutId={movieMatch?.params.movieId}
               style={{
                 top: scrollY.get() + 100,
               }}
@@ -318,7 +318,7 @@ export function MovieList({ name, number, input, key }: INumber) {
                   <BigCover
                     style={{
                       backgroundImage: `linear-gradient(to top, black,transparent), url(${imagePath(
-                        movieClick.backdrop_path
+                        movieClick.backdrop_path || ""
                       )}`,
                     }}
                   />
