@@ -78,7 +78,7 @@ function Home() {
             value={0}
           />
 
-          <Span style={{ top: 85 }}>Latest</Span>
+          <Span style={{ top: 180 }}>Latest</Span>
           <MovieList
             name={"latest"}
             number={90}
@@ -87,7 +87,7 @@ function Home() {
             value={1}
           />
 
-          <Span style={{ top: 175 }}>Top Rated</Span>
+          <Span style={{ top: 350 }}>Top Rated</Span>
           <MovieList
             sliderHeight={180}
             name={"toprated"}

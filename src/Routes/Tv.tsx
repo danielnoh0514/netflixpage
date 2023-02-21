@@ -84,7 +84,7 @@ function Tv() {
             value={0}
           />
 
-          <Span style={{ top: 85 }}>Latest</Span>
+          <Span style={{ top: 180 }}>Latest</Span>
           <TvList
             sliderHeight={90}
             name={"latestTv"}
@@ -93,7 +93,7 @@ function Tv() {
             value={1}
           />
 
-          <Span style={{ top: 175 }}>Popular</Span>
+          <Span style={{ top: 350 }}>Popular</Span>
           <TvList
             sliderHeight={180}
             name={"popular"}
@@ -102,7 +102,7 @@ function Tv() {
             value={2}
           />
 
-          <Span style={{ top: 265 }}>Top Rated</Span>
+          <Span style={{ top: 530 }}>Top Rated</Span>
           <TvList
             sliderHeight={270}
             name={"topratedTv"}
