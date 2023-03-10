@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 const Nav = styled(motion.div)`
   width: 100%;
-  height: 15%;
+  height: 7vh;
   position: fixed;
   z-index: 1;
   background-color: black;

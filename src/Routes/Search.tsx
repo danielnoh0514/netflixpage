@@ -3,6 +3,7 @@ import { AnimatePresence, motion, useScroll } from "framer-motion";
 import { useState } from "react";
 import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import styled from "styled-components";
+import { IMovies } from "../api";
 import { imagePath } from "../utils";
 
 const Loader = styled.div`
@@ -11,10 +12,24 @@ const Loader = styled.div`
   justify-content: center;
   align-items: center;
 `;
+const Rows = styled(motion.div)`
+  position: absolute;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+`;
+const slideVar = {
+  start: (custom: boolean) => ({
+    x: custom ? window.innerWidth : -window.innerWidth,
+  }),
+  visible: { x: 1 },
+  exit: (custom: boolean) => ({
+    x: custom ? -window.innerWidth : window.innerWidth,
+  }),
+};
 
 const Box = styled(motion.div)<{ bgPhoto: string }>`
-  width: 200px;
-  height: 100px;
+  height: 18vh;
   background-color: white;
   color: red;
   background-image: url(${(props) => props.bgPhoto});
@@ -35,38 +50,16 @@ const boxVar = {
   },
 };
 
-export interface IResults {
-  id: number;
-  backdrop_path: string;
-  poster_path: string;
-  title: string;
-  overview: string;
-}
-
-export interface IMovies {
-  dates: {
-    maximum: string;
-    minimum: string;
-  };
-  page: number;
-  results: IResults[];
-  total_pages: number;
-  total_results: number;
-}
-
 const Wrapper = styled.div`
-  margin-top: 500px;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  margin-top: 40vh;
 `;
 
 const BigMovie = styled(motion.div)`
   position: absolute;
-  z-index: 1;
-  width: 450px;
-  height: 500px;
+  width: 38vw;
+  height: 60vh;
   border-radius: 20px;
-  overflow: hidden;
+  overflow: auto;
   margin: 0 auto;
   right: 0;
   left: 0;
@@ -74,25 +67,26 @@ const BigMovie = styled(motion.div)`
 `;
 
 const BigCover = styled.div`
-  width: 100%;
+  position: relative;
+  width: 38vw;
   background-size: cover;
   background-position: center center;
-  height: 50%;
+  height: 27vh;
 `;
 
 const BigTitle = styled.h3`
   position: relative;
-  top: -10%;
-  margin-left: 30px;
+  top: -10vh;
+  margin-left: 2vw;
   color: ${(props) => props.theme.white.lighter};
-  font-size: 100%;
+  font-size: 2vw;
 `;
 
 const BigOverview = styled.p`
   position: relative;
-  font-size: 70%;
-  width: 60%;
-  margin-left: 30px;
+  top: -27vh;
+  width: 15vw;
+  right: -17vw;
 `;
 
 const Overlay = styled(motion.div)`
@@ -106,32 +100,14 @@ const Overlay = styled(motion.div)`
 `;
 
 const Slider = styled(motion.div)`
-  top: -20px;
   position: relative;
-  margin-left: 23.5px;
 `;
-
-const Rows = styled(motion.div)`
-  position: absolute;
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-`;
-const slideVar = {
-  start: (custom: boolean) => ({
-    x: custom ? window.innerWidth : -window.innerWidth,
-  }),
-  visible: { x: 1 },
-  exit: (custom: boolean) => ({
-    x: custom ? -window.innerWidth : window.innerWidth,
-  }),
-};
 
 const Button = styled(motion.button)`
   position: absolute;
   width: 50px;
-  height: 100px;
-  top: 480px;
+  height: 18vh;
+  top: 40vh;
   opacity: 0;
   background-color: rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(0, 0, 0, 0.5);
@@ -150,6 +126,49 @@ const btnVar = {
 };
 
 const Svg = styled(motion.svg)``;
+
+const BigRating = styled.span`
+  position: relative;
+  top: -28vh;
+  left: 17vw;
+  font-weight: 600;
+  font-size: 1vw;
+`;
+
+const BigPoster = styled.div<{ bgPhoto: string }>`
+  position: relative;
+  width: 15vw;
+  height: 30vh;
+  top: -8vh;
+  right: -1vw;
+  background-image: url(${(props) => props.bgPhoto});
+  background-size: cover;
+`;
+
+const infoVar = {
+  hover: {
+    opacity: 1,
+    transition: {
+      delay: 0.5,
+      duration: 0.1,
+    },
+  },
+};
+
+const Info = styled(motion.div)`
+  width: 16.7vw;
+  height: 5px;
+  background-color: ${(props) => props.theme.black.lighter};
+  bottom: 0;
+  position: absolute;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  opacity: 0;
+  font-size: 10px;
+`;
 
 function Search() {
   const history = useHistory();
@@ -178,7 +197,7 @@ function Search() {
   const [slide, setSlide] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const toggleLeaving = () => setLeaving((prev) => !prev);
-  const offset = 5;
+  const offset = 6;
   const [back, setBack] = useState(false);
   const slideFunctionBack = () => {
     setBack(false);
@@ -235,7 +254,11 @@ function Search() {
                         key={movie.id}
                         transition={{ type: "tween" }}
                         bgPhoto={imagePath(movie.backdrop_path)}
-                      ></Box>
+                      >
+                        <Info transition={{ type: "tween" }} variants={infoVar}>
+                          {movie.title}
+                        </Info>
+                      </Box>
                     ) : null
                   )}
               </Rows>
@@ -295,7 +318,18 @@ function Search() {
                         }}
                       />{" "}
                       <BigTitle>{movieClick.title}</BigTitle>
-                      <BigOverview>{movieClick.overview}</BigOverview>
+                      <BigPoster
+                        bgPhoto={imagePath(movieClick.poster_path) || ""}
+                      ></BigPoster>
+                      <BigRating>
+                        Rating:
+                        {"⭐️".repeat(Math.floor(movieClick.vote_average / 2))}
+                      </BigRating>
+                      <BigOverview>
+                        {movieClick.overview.length > 250
+                          ? movieClick.overview.substring(0, 250) + "..."
+                          : movieClick.overview}
+                      </BigOverview>
                     </>
                   )}
                 </BigMovie>

@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import Header from "./Components/Header";
@@ -8,7 +7,6 @@ import Tv from "./Routes/Tv";
 import { latest } from "./utils";
 
 function App() {
-  const latestMovie = useRecoilValue(latest);
   return (
     <Router>
       <Header />

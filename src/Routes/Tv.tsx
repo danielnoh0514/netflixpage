@@ -1,20 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { AnimatePresence, motion, useScroll } from "framer-motion";
-import { useEffect, useState } from "react";
-import { useHistory, useRouteMatch } from "react-router-dom";
 import styled from "styled-components";
 import {
   getAiringTv,
-  getLastestMovies,
   getLatestTv,
-  getMovies,
   getPopularTv,
   getTopRatedTv,
-  getUpcomingMovies,
-  IMovies,
   ITv,
 } from "../api";
-import { MovieList } from "../Components/MovieList";
 import { TvList } from "../Components/TvList";
 import { imagePath } from "../utils";
 
@@ -25,7 +17,7 @@ const Span = styled.span`
 `;
 
 const Wrapper = styled.div`
-  height: 260vh;
+  height: 220vh;
 `;
 
 const Banner = styled.div<{ bgPhoto: string }>`
@@ -38,20 +30,19 @@ const Banner = styled.div<{ bgPhoto: string }>`
     url(${(props) => props.bgPhoto});
   background-size: cover;
 `;
-
 const Title = styled.h2`
   position: absolute;
   display: block;
-  top: 480px;
-  font-size: 40px;
+  top: 50vh;
+  font-size: 100px;
   font-weight: 800;
 `;
 
 const Overview = styled.p`
   position: absolute;
-  top: 550px;
-  font-size: 13px;
-  width: 50%;
+  top: 57vh;
+  font-size: 25px;
+  width: 30vw;
   font-weight: 600;
 `;
 
@@ -84,29 +75,29 @@ function Tv() {
             value={0}
           />
 
-          <Span style={{ top: 180 }}>Latest</Span>
+          <Span style={{ top: 250 }}>Latest</Span>
           <TvList
-            sliderHeight={90}
+            sliderHeight={130}
             name={"latestTv"}
-            number={90}
+            number={130}
             input={getAiringTv}
             value={1}
           />
 
-          <Span style={{ top: 350 }}>Popular</Span>
+          <Span style={{ top: 500 }}>Popular</Span>
           <TvList
-            sliderHeight={180}
+            sliderHeight={260}
             name={"popular"}
-            number={180}
+            number={260}
             input={getPopularTv}
             value={2}
           />
 
-          <Span style={{ top: 530 }}>Top Rated</Span>
+          <Span style={{ top: 750 }}>Top Rated</Span>
           <TvList
-            sliderHeight={270}
+            sliderHeight={390}
             name={"topratedTv"}
-            number={270}
+            number={390}
             input={getTopRatedTv}
             value={2}
           />

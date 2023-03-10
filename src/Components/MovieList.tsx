@@ -1,27 +1,26 @@
 import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence, motion, useScroll } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
-import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { IMovies } from "../api";
-import { imagePath, latest } from "../utils";
+import { imagePath } from "../utils";
 
 const Slider = styled(motion.div)`
   position: relative;
-  width: 100%;
+  width: 100vw;
   height: 10vh;
 `;
 
 const Rows = styled(motion.div)`
   position: absolute;
-  width: 100%;
+  width: 100vw;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
 `;
 
 const Box = styled(motion.div)<{ bgPhoto: string }>`
-  height: 140px;
+  height: 18vh;
   background-color: white;
   color: red;
   background-image: url(${(props) => props.bgPhoto});
@@ -49,7 +48,7 @@ const boxVar = {
 };
 
 const Info = styled(motion.div)`
-  width: 252px;
+  width: 16.7vw;
   height: 5px;
   background-color: ${(props) => props.theme.black.lighter};
   bottom: 0;
@@ -87,8 +86,8 @@ const Overlay = styled(motion.div)`
   position: fixed;
   top: 0;
   bottom: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   opacity: 0;
 
   background-color: rgba(0, 0, 0, 0.5);
@@ -96,46 +95,44 @@ const Overlay = styled(motion.div)`
 
 const BigMovie = styled(motion.div)`
   position: absolute;
-  width: 450px;
-  height: 500px;
+  width: 38vw;
+  height: 60vh;
   border-radius: 20px;
   overflow: auto;
   margin: 0 auto;
   right: 0;
   left: 0;
-
   background-color: #181818;
 `;
 
 const BigCover = styled.div`
   position: relative;
-  width: 500px;
+  width: 38vw;
   background-size: cover;
   background-position: center center;
-  height: 50%;
+  height: 27vh;
 `;
 
 const BigTitle = styled.h3`
   position: relative;
-  top: -10%;
-  margin-left: 5%;
+  top: -10vh;
+  margin-left: 2vw;
   color: ${(props) => props.theme.white.lighter};
-  font-size: 100%;
+  font-size: 2vw;
 `;
 
 const BigOverview = styled.p`
   position: relative;
-  top: 1%;
-  width: 80%;
-  margin-left: 5%;
-  font-size: 70%;
+  top: -27vh;
+  width: 15vw;
+  right: -17vw;
 `;
 
 const Button = styled(motion.button)`
   position: absolute;
   z-index: 1;
   width: 50px;
-  height: 140px;
+  height: 18vh;
   opacity: 0;
   background-color: rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(0, 0, 0, 0.5);
@@ -148,19 +145,21 @@ const btnVar = {
 
 const Svg = styled(motion.svg)``;
 
-const BigDate = styled.div`
-  position: absolute;
-  bottom: 0;
-  margin-left: 20px;
-  margin-bottom: 10px;
+const BigDate = styled.span`
+  position: relative;
+  top: -32vh;
+  left: 17vw;
+
+  font-weight: 600;
+  font-size: 1vw;
 `;
 
 const BigRating = styled.span`
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  margin-bottom: 10px;
-  margin-right: 20px;
+  position: relative;
+  top: -29vh;
+  left: 12vw;
+  font-weight: 600;
+  font-size: 1vw;
 `;
 
 interface INumber {
@@ -171,8 +170,24 @@ interface INumber {
   sliderHeight: number;
 }
 
-const Button1 = styled.button`
-  position: absolute;
+const BoxImage = styled.span`
+  font-size: 2vw;
+`;
+
+const BoxWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const BigPoster = styled.div<{ bgPhoto: string }>`
+  position: relative;
+  width: 15vw;
+  height: 30vh;
+  top: -8vh;
+  right: -1vw;
+  background-image: url(${(props) => props.bgPhoto});
+  background-size: cover;
 `;
 
 export function MovieList({
@@ -194,16 +209,12 @@ export function MovieList({
 
   const overlayClick = () => history.push("/");
   const { scrollY } = useScroll();
-
   const { data } = useQuery<IMovies>([name, value + ""], input);
-
   const movieMatch = useRouteMatch<{ movieId: string }>("/movies/:movieId");
 
   const movieClick =
     movieMatch?.params.movieId &&
     data?.results.find((movie) => movie.id === +movieMatch.params.movieId);
-
-  console.log(movieClick, "HOLAHOLAHOLA");
 
   const [back, setBack] = useState(false);
 
@@ -213,7 +224,7 @@ export function MovieList({
       if (leaving) return;
       toggleLeaving();
       const totalMovies = data.results.length;
-      const totalIndex = Math.floor(totalMovies / offset);
+      const totalIndex = Math.floor(totalMovies / offset) - 1;
       setSlide((prev) => (prev === 0 ? totalIndex : prev - 1));
     }
   };
@@ -223,14 +234,14 @@ export function MovieList({
       if (leaving) return;
       toggleLeaving();
       const totalMovies = data.results.length;
-      const totalIndex = Math.floor(totalMovies / offset);
+      const totalIndex = Math.floor(totalMovies / offset) - 1;
       setSlide((prev) => (prev === totalIndex ? 0 : prev + 1));
     }
   };
 
   return (
     <div>
-      <Slider style={{ top: sliderHeight }} className="first">
+      <Slider style={{ top: sliderHeight }} className={name}>
         <AnimatePresence>
           <Button
             style={{ top: number, left: 0 }}
@@ -266,22 +277,28 @@ export function MovieList({
             {data?.results
               .slice(1)
               .slice(offset * slide, offset * slide + offset)
-              .map((movie) => (
-                <Box
-                  layoutId={movie.id + ""}
-                  onClick={() => onBoxClick(movie.id)}
-                  variants={boxVar}
-                  whileHover={"hover"}
-                  initial={"start"}
-                  key={movie.id}
-                  transition={{ type: "tween" }}
-                  bgPhoto={imagePath(movie.backdrop_path || "")}
-                >
-                  <Info transition={{ type: "tween" }} variants={infoVar}>
-                    {movie.title}
-                  </Info>
-                </Box>
-              ))}
+              .map((movie) =>
+                movie.backdrop_path ? (
+                  <Box
+                    layoutId={name + movie.id + ""}
+                    onClick={() => onBoxClick(movie.id)}
+                    variants={boxVar}
+                    whileHover={"hover"}
+                    initial={"start"}
+                    key={movie.id + number}
+                    transition={{ type: "tween" }}
+                    bgPhoto={imagePath(movie.backdrop_path || "")}
+                  >
+                    <Info transition={{ type: "tween" }} variants={infoVar}>
+                      {movie.title}
+                    </Info>
+                  </Box>
+                ) : (
+                  <BoxWrapper>
+                    <BoxImage>No Image Found</BoxImage>
+                  </BoxWrapper>
+                )
+              )}
           </Rows>
           <AnimatePresence>
             <Button
@@ -314,12 +331,13 @@ export function MovieList({
             {movieClick ? (
               <>
                 <BigMovie
-                  layoutId={movieMatch?.params.movieId}
+                  key={name + movieMatch?.params.movieId}
+                  layoutId={name + movieMatch?.params.movieId}
                   initial={{ scale: 0 }}
                   animate={{ opacity: 1, scale: 1, zIndex: 5000 }}
                   exit={{ scale: 0 }}
                   style={{
-                    top: scrollY.get() + 150,
+                    top: scrollY.get() + 300,
                   }}
                 >
                   <BigCover
@@ -330,9 +348,19 @@ export function MovieList({
                     }}
                   />
                   <BigTitle>{movieClick.title}</BigTitle>
-                  <BigOverview>{movieClick.overview}</BigOverview>
+                  <BigPoster
+                    bgPhoto={imagePath(movieClick.poster_path) || ""}
+                  ></BigPoster>
                   <BigDate>{movieClick.release_date}</BigDate>
-                  <BigRating>{movieClick.vote_average}</BigRating>
+                  <BigRating>
+                    Rating:
+                    {"⭐️".repeat(Math.floor(movieClick.vote_average / 2))}
+                  </BigRating>
+                  <BigOverview>
+                    {movieClick.overview.length > 250
+                      ? movieClick.overview.substring(0, 250) + "..."
+                      : movieClick.overview}
+                  </BigOverview>
                 </BigMovie>
               </>
             ) : null}

@@ -1,12 +1,9 @@
-import React from "react";
 import ReactDOM from "react-dom";
-import { RecoilRoot, useRecoilValue } from "recoil";
+import { RecoilRoot } from "recoil";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { ReactQueryDevtools } from "react-query-devtools";
 import App from "./App";
 import { theme } from "./theme";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { latest } from "./utils";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
