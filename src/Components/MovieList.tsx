@@ -128,7 +128,7 @@ const BigOverview = styled.p`
   position: relative;
   top: -40vh;
   width: 12vw;
-  right: -17vw;
+  right: -22vw;
 `;
 
 const Button = styled(motion.button)`
@@ -150,8 +150,8 @@ const Svg = styled(motion.svg)``;
 
 const BigDate = styled.span`
   position: relative;
-  top: -49vh;
-  left: 17vw;
+  top: -52vh;
+  left: 22vw;
 
   font-weight: 600;
   font-size: 1vw;
@@ -160,7 +160,7 @@ const BigDate = styled.span`
 const BigRating = styled.span`
   position: relative;
   top: -46vh;
-  left: 11.8vw;
+  left: 16.9vw;
   font-weight: 600;
   font-size: 1vw;
 `;
