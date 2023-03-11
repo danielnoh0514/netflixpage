@@ -6,6 +6,7 @@ import {
   getPopularTv,
   getTopRatedTv,
   ITv,
+  randTv,
 } from "../api";
 import { TvList } from "../Components/TvList";
 import { imagePath } from "../utils";
@@ -33,14 +34,15 @@ const Banner = styled.div<{ bgPhoto: string }>`
 const Title = styled.h2`
   position: absolute;
   display: block;
-  top: 50vh;
-  font-size: 100px;
+  top: 55vh;
+
+  font-size: 3.2vw;
   font-weight: 800;
 `;
 
 const Overview = styled.p`
   position: absolute;
-  top: 57vh;
+  top: 73vh;
   font-size: 25px;
   width: 30vw;
   font-weight: 600;
@@ -53,8 +55,19 @@ const Loader = styled.div`
   align-items: center;
 `;
 
+const NoImg = styled.div`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  font-size: 10vw;
+`;
+
 function Tv() {
   const { data, isLoading } = useQuery<ITv>(["latest", 0], getLatestTv);
+  console.log(randTv);
 
   return (
     <Wrapper>
@@ -62,10 +75,23 @@ function Tv() {
         <Loader>Loading...</Loader>
       ) : (
         <>
-          <Banner bgPhoto={imagePath(data?.results[0].backdrop_path || "")}>
-            <Title>{data?.results[0].name}</Title>
-            <Overview>{data?.results[0].overview}</Overview>
-          </Banner>
+          {data?.results[0].backdrop_path ? (
+            <Banner
+              bgPhoto={imagePath(
+                data?.results[0]?.backdrop_path || "No Image Found"
+              )}
+            >
+              <Title>{data?.results[0].name}</Title>
+              <Overview>
+                {data?.results[0].overview.length > 250
+                  ? data?.results[0].overview.substring(0, 250) + "..."
+                  : data?.results[0].overview}
+              </Overview>
+            </Banner>
+          ) : (
+            <NoImg>No Data Found</NoImg>
+          )}
+
           <Span style={{ top: -5 }}>Upcoming</Span>
           <TvList
             sliderHeight={0}

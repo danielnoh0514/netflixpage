@@ -32,7 +32,8 @@ export interface ITv {
   results: IResultsTv[];
 }
 
-const rand = Math.round(Math.random() * 20);
+const rand = Math.round(Math.random() * 20) + 1;
+export const randTv = Math.round(Math.random() * 5) + 1;
 
 export function getMovies() {
   return fetch(
@@ -55,24 +56,24 @@ export function getUpcomingMovies() {
 
 export function getLatestTv() {
   return fetch(
-    `https://api.themoviedb.org/3/tv/airing_today?api_key=d20eea6a9e7e472eef44a70d5027d38d&language=en-US&page=${rand}`
+    `https://api.themoviedb.org/3/tv/airing_today?api_key=d20eea6a9e7e472eef44a70d5027d38d&language=en-US&page=${randTv}`
   ).then((response) => response.json());
 }
 
 export function getAiringTv() {
   return fetch(
-    `https://api.themoviedb.org/3/tv/top_rated?api_key=d20eea6a9e7e472eef44a70d5027d38d&language=en-US&page=${rand}`
+    `https://api.themoviedb.org/3/tv/top_rated?api_key=d20eea6a9e7e472eef44a70d5027d38d&language=en-US&page=${randTv}`
   ).then((response) => response.json());
 }
 
 export function getPopularTv() {
   return fetch(
-    `https://api.themoviedb.org/3/tv/popular?api_key=d20eea6a9e7e472eef44a70d5027d38d&language=en-US&page=${rand}`
+    `https://api.themoviedb.org/3/tv/popular?api_key=d20eea6a9e7e472eef44a70d5027d38d&language=en-US&page=${randTv}`
   ).then((response) => response.json());
 }
 
 export function getTopRatedTv() {
   return fetch(
-    `https://api.themoviedb.org/3/tv/on_the_air?api_key=d20eea6a9e7e472eef44a70d5027d38d&language=en-US&page=${rand}`
+    `https://api.themoviedb.org/3/tv/on_the_air?api_key=d20eea6a9e7e472eef44a70d5027d38d&language=en-US&page=${randTv}`
   ).then((response) => response.json());
 }

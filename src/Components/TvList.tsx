@@ -96,22 +96,25 @@ const Overlay = styled(motion.div)`
 
 const BigMovie = styled(motion.div)`
   position: absolute;
-  width: 38vw;
-  height: 60vh;
-  border-radius: 20px;
-  overflow: auto;
+  width: 40vw;
+  height: 90vh;
+  border-radius: 30px;
+  overflow: hidden;
   margin: 0 auto;
   right: 0;
   left: 0;
   background-color: #181818;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const BigCover = styled.div`
   position: relative;
-  width: 38vw;
+  width: 40vw;
+  height: 35vh;
   background-size: cover;
   background-position: center center;
-  height: 27vh;
 `;
 
 const BigTitle = styled.h3`
@@ -124,9 +127,9 @@ const BigTitle = styled.h3`
 
 const BigOverview = styled.p`
   position: relative;
-  top: -27vh;
-  width: 15vw;
-  right: -17vw;
+  top: -40vh;
+  width: 12vw;
+  right: -22vw;
 `;
 
 const Button = styled(motion.button)`
@@ -148,8 +151,8 @@ const Svg = styled(motion.svg)``;
 
 const BigDate = styled.span`
   position: relative;
-  top: -32vh;
-  left: 17vw;
+  top: -52vh;
+  left: 22vw;
 
   font-weight: 600;
   font-size: 1vw;
@@ -157,8 +160,8 @@ const BigDate = styled.span`
 
 const BigRating = styled.span`
   position: relative;
-  top: -29vh;
-  left: 12vw;
+  top: -46vh;
+  left: 16.9vw;
   font-weight: 600;
   font-size: 1vw;
 `;
@@ -173,8 +176,8 @@ interface INumber {
 
 const BigPoster = styled.div<{ bgPhoto: string }>`
   position: relative;
-  width: 15vw;
-  height: 30vh;
+  width: 20vw;
+  height: 50vh;
   top: -8vh;
   right: -1vw;
   background-image: url(${(props) => props.bgPhoto});
@@ -266,12 +269,12 @@ export function TvList({ name, number, input, value, sliderHeight }: INumber) {
               .slice(offset * slide, offset * slide + offset)
               .map((movie) => (
                 <Box
-                  layoutId={movie.id + ""}
+                  layoutId={name + movie.id + ""}
                   onClick={() => onBoxClick(movie.id)}
                   variants={boxVar}
                   whileHover={"hover"}
                   initial={"start"}
-                  key={movie.id}
+                  key={movie.id + number}
                   transition={{ type: "tween" }}
                   bgPhoto={imagePath(movie.backdrop_path || "")}
                 >
@@ -317,7 +320,7 @@ export function TvList({ name, number, input, value, sliderHeight }: INumber) {
                   animate={{ opacity: 1, scale: 1, zIndex: 5000 }}
                   exit={{ scale: 0 }}
                   style={{
-                    top: scrollY.get() + 150,
+                    top: scrollY.get() + 100,
                   }}
                 >
                   <BigCover

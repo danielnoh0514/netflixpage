@@ -95,8 +95,8 @@ const Overlay = styled(motion.div)`
 
 const BigMovie = styled(motion.div)`
   position: absolute;
-  width: 33vw;
-  height: 80vh;
+  width: 40vw;
+  height: 90vh;
   border-radius: 30px;
   overflow: hidden;
   margin: 0 auto;
@@ -110,7 +110,7 @@ const BigMovie = styled(motion.div)`
 
 const BigCover = styled.div`
   position: relative;
-  width: 33vw;
+  width: 40vw;
   height: 35vh;
   background-size: cover;
   background-position: center center;
@@ -185,8 +185,8 @@ const BoxWrapper = styled.div`
 
 const BigPoster = styled.div<{ bgPhoto: string }>`
   position: relative;
-  width: 15vw;
-  height: 45vh;
+  width: 20vw;
+  height: 50vh;
   top: -8vh;
   right: -1vw;
   background-image: url(${(props) => props.bgPhoto});
