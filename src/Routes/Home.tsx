@@ -33,14 +33,15 @@ const Banner = styled.div<{ bgPhoto: string }>`
 const Title = styled.h2`
   position: absolute;
   display: block;
-  top: 50vh;
-  font-size: 100px;
+  top: 55vh;
+
+  font-size: 3.2vw;
   font-weight: 800;
 `;
 
 const Overview = styled.p`
   position: absolute;
-  top: 57vh;
+  top: 73vh;
   font-size: 25px;
   width: 30vw;
   font-weight: 600;

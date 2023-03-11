@@ -95,22 +95,25 @@ const Overlay = styled(motion.div)`
 
 const BigMovie = styled(motion.div)`
   position: absolute;
-  width: 38vw;
-  height: 60vh;
-  border-radius: 20px;
-  overflow: auto;
+  width: 33vw;
+  height: 80vh;
+  border-radius: 30px;
+  overflow: hidden;
   margin: 0 auto;
   right: 0;
   left: 0;
   background-color: #181818;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const BigCover = styled.div`
   position: relative;
-  width: 38vw;
+  width: 33vw;
+  height: 35vh;
   background-size: cover;
   background-position: center center;
-  height: 27vh;
 `;
 
 const BigTitle = styled.h3`
@@ -123,8 +126,8 @@ const BigTitle = styled.h3`
 
 const BigOverview = styled.p`
   position: relative;
-  top: -27vh;
-  width: 15vw;
+  top: -40vh;
+  width: 12vw;
   right: -17vw;
 `;
 
@@ -147,7 +150,7 @@ const Svg = styled(motion.svg)``;
 
 const BigDate = styled.span`
   position: relative;
-  top: -32vh;
+  top: -49vh;
   left: 17vw;
 
   font-weight: 600;
@@ -156,8 +159,8 @@ const BigDate = styled.span`
 
 const BigRating = styled.span`
   position: relative;
-  top: -29vh;
-  left: 12vw;
+  top: -46vh;
+  left: 11.8vw;
   font-weight: 600;
   font-size: 1vw;
 `;
@@ -183,7 +186,7 @@ const BoxWrapper = styled.div`
 const BigPoster = styled.div<{ bgPhoto: string }>`
   position: relative;
   width: 15vw;
-  height: 30vh;
+  height: 45vh;
   top: -8vh;
   right: -1vw;
   background-image: url(${(props) => props.bgPhoto});
@@ -337,7 +340,7 @@ export function MovieList({
                   animate={{ opacity: 1, scale: 1, zIndex: 5000 }}
                   exit={{ scale: 0 }}
                   style={{
-                    top: scrollY.get() + 300,
+                    top: scrollY.get() + 100,
                   }}
                 >
                   <BigCover
