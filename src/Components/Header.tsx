@@ -13,8 +13,9 @@ const Nav = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 14;
-  padding: 20px 60px;
+
+  padding: 3% 6%;
+  padding-right: 9%;
 
   top: 0;
 `;
@@ -80,15 +81,14 @@ const Search = styled.form`
 
 const Input = styled(motion.input)`
   position: absolute;
-  left: -150px;
   top: -17px;
-  left: -200px;
-  padding: 9px;
-  padding-left: 40px;
-  padding-right: 40px;
+  left: -7rem;
+  padding: 0.3rem 5%;
+  padding-right: 8%;
   transform-origin: right center;
   border: 1px solid white;
   color: white;
+  text-align: center;
 `;
 
 const navVar = {
@@ -171,9 +171,9 @@ function Header() {
         <Search onSubmit={handleSubmit(onSubmit)}>
           <motion.svg
             onClick={onClick}
-            style={{ position: "absolute", zIndex: 1 }}
+            style={{ position: "absolute", zIndex: 1, y: "-0.3vh" }}
             transition={{ type: "linear", duration: 0.25 }}
-            animate={{ x: searchOpen ? -193 : 0 }}
+            animate={{ x: searchOpen ? -109 : 0 }}
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"

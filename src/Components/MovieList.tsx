@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence, motion, useScroll } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import styled from "styled-components";
 import { IMovies } from "../api";
 import { imagePath } from "../utils";
+import { useRecoilValue } from "recoil";
 
 const Slider = styled(motion.div)`
   position: relative;
@@ -12,11 +13,11 @@ const Slider = styled(motion.div)`
   height: 10vh;
 `;
 
-const Rows = styled(motion.div)`
+const Rows = styled(motion.div)<{ count: number }>`
   position: absolute;
-  width: 100vw;
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(${(props) => props.count}, 1fr);
 `;
 
 const Box = styled(motion.div)<{ bgPhoto: string }>`
@@ -95,13 +96,14 @@ const Overlay = styled(motion.div)`
 
 const BigMovie = styled(motion.div)`
   position: absolute;
-  width: 40vw;
-  height: 90vh;
+  width: 40%;
+  height: 80%;
   border-radius: 30px;
   overflow: hidden;
   margin: 0 auto;
   right: 0;
   left: 0;
+
   background-color: #181818;
   &::-webkit-scrollbar {
     display: none;
@@ -110,8 +112,8 @@ const BigMovie = styled(motion.div)`
 
 const BigCover = styled.div`
   position: relative;
-  width: 40vw;
-  height: 35vh;
+  width: 100%;
+  height: 50%;
   background-size: cover;
   background-position: center center;
 `;
@@ -121,14 +123,17 @@ const BigTitle = styled.h3`
   top: -10vh;
   margin-left: 2vw;
   color: ${(props) => props.theme.white.lighter};
-  font-size: 2vw;
+  font-size: 1rem;
 `;
 
 const BigOverview = styled.p`
   position: relative;
-  top: -40vh;
-  width: 12vw;
-  right: -22vw;
+
+  top: -60%;
+  left: 43%;
+  width: 40%;
+
+  font-size: 0.5rem;
 `;
 
 const Button = styled(motion.button)`
@@ -150,17 +155,16 @@ const Svg = styled(motion.svg)``;
 
 const BigDate = styled.span`
   position: relative;
-  top: -52vh;
-  left: 22vw;
-
+  top: -1vh;
+  left: 42.8%;
   font-weight: 600;
   font-size: 1vw;
 `;
 
 const BigRating = styled.span`
   position: relative;
-  top: -46vh;
-  left: 16.9vw;
+  top: 2vh;
+  left: 30%;
   font-weight: 600;
   font-size: 1vw;
 `;
@@ -185,12 +189,13 @@ const BoxWrapper = styled.div`
 
 const BigPoster = styled.div<{ bgPhoto: string }>`
   position: relative;
-  width: 20vw;
-  height: 50vh;
-  top: -8vh;
-  right: -1vw;
+  width: 40%;
+  height: 70%;
+  top: -10vh;
+
   background-image: url(${(props) => props.bgPhoto});
   background-size: cover;
+  background-position: center center;
 `;
 
 export function MovieList({
@@ -201,6 +206,7 @@ export function MovieList({
   sliderHeight,
 }: INumber) {
   const [slide, setSlide] = useState(0);
+
   const [leaving, setLeaving] = useState(false);
   const toggleLeaving = () => setLeaving((prev) => !prev);
   const history = useHistory();
@@ -208,7 +214,7 @@ export function MovieList({
     history.push(`/movies/${movieId}`);
   };
 
-  const offset = 6;
+  const [offset, setOffset] = useState(6);
 
   const overlayClick = () => history.push("/");
   const { scrollY } = useScroll();
@@ -231,6 +237,7 @@ export function MovieList({
       setSlide((prev) => (prev === 0 ? totalIndex : prev - 1));
     }
   };
+
   const slideFunctionFront = () => {
     setBack(true);
     if (data) {
@@ -240,6 +247,35 @@ export function MovieList({
       const totalIndex = Math.floor(totalMovies / offset) - 1;
       setSlide((prev) => (prev === totalIndex ? 0 : prev + 1));
     }
+  };
+
+  useEffect(() => {
+    const updateNumColumns = () => {
+      const screenWidth = window.innerWidth;
+      if (screenWidth > 1400) {
+        setOffset(6);
+      } else if (screenWidth > 1130) {
+        setOffset(5);
+      } else if (screenWidth > 900) {
+        setOffset(4);
+      } else if (screenWidth > 680) {
+        setOffset(3);
+      } else if (screenWidth > 250) {
+        setOffset(2);
+      } else {
+        setOffset(1);
+      }
+    };
+
+    updateNumColumns();
+
+    window.addEventListener("resize", updateNumColumns);
+
+    return () => window.removeEventListener("resize", updateNumColumns);
+  }, []);
+
+  const rowProp = {
+    count: offset,
   };
 
   return (
@@ -268,6 +304,7 @@ export function MovieList({
           onExitComplete={toggleLeaving}
         >
           <Rows
+            {...rowProp}
             style={{ top: number }}
             custom={back}
             key={slide}
@@ -288,7 +325,7 @@ export function MovieList({
                     variants={boxVar}
                     whileHover={"hover"}
                     initial={"start"}
-                    key={movie.id + number}
+                    key={movie.id + number + value}
                     transition={{ type: "tween" }}
                     bgPhoto={imagePath(movie.backdrop_path || "")}
                   >
@@ -340,7 +377,7 @@ export function MovieList({
                   animate={{ opacity: 1, scale: 1, zIndex: 5000 }}
                   exit={{ scale: 0 }}
                   style={{
-                    top: scrollY.get() + 100,
+                    top: scrollY.get() + 50,
                   }}
                 >
                   <BigCover
@@ -351,17 +388,18 @@ export function MovieList({
                     }}
                   />
                   <BigTitle>{movieClick.title}</BigTitle>
-                  <BigPoster
-                    bgPhoto={imagePath(movieClick.poster_path) || ""}
-                  ></BigPoster>
                   <BigDate>{movieClick.release_date}</BigDate>
                   <BigRating>
                     Rating:
                     {"⭐️".repeat(Math.floor(movieClick.vote_average / 2))}
                   </BigRating>
+
+                  <BigPoster
+                    bgPhoto={imagePath(movieClick.poster_path) || ""}
+                  ></BigPoster>
                   <BigOverview>
-                    {movieClick.overview.length > 250
-                      ? movieClick.overview.substring(0, 250) + "..."
+                    {movieClick.overview.length > 200
+                      ? movieClick.overview.substring(0, 200) + "..."
                       : movieClick.overview}
                   </BigOverview>
                 </BigMovie>
