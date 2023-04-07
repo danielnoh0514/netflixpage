@@ -5,7 +5,6 @@ import { useHistory, useRouteMatch } from "react-router-dom";
 import styled from "styled-components";
 import { IMovies } from "../api";
 import { imagePath } from "../utils";
-import { useRecoilValue } from "recoil";
 
 const Slider = styled(motion.div)`
   position: relative;

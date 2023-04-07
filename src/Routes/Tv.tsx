@@ -176,7 +176,6 @@ const NoImg = styled.div`
 
 function Tv() {
   const { data, isLoading } = useQuery<ITv>(["latest", 0], getLatestTv);
-  console.log(randTv);
 
   return (
     <Wrapper>

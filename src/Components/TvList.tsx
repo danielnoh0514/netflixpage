@@ -2,10 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence, motion, useScroll } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
-import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { IMovies, ITv } from "../api";
-import { imagePath, latest } from "../utils";
+import { ITv } from "../api";
+import { imagePath } from "../utils";
 
 const Slider = styled(motion.div)`
   position: relative;
@@ -259,7 +258,6 @@ export function TvList({ name, number, input, value, sliderHeight }: INumber) {
     // need to remove the eventlistener after being unmounted (when removed)
     return () => window.removeEventListener("resize", changeRows);
   }, []);
-  console.log(offset, "Hi");
 
   return (
     <div>
