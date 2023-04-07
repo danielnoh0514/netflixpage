@@ -13,11 +13,11 @@ const Slider = styled(motion.div)`
   height: 10vh;
 `;
 
-const Rows = styled(motion.div)`
+const Rows = styled(motion.div)<{ offset: number }>`
   position: absolute;
   width: 100vw;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(${(props) => props.offset}, 1fr);
 `;
 
 const Box = styled(motion.div)<{ bgPhoto: string }>`
@@ -49,7 +49,7 @@ const boxVar = {
 };
 
 const Info = styled(motion.div)`
-  width: 16.7vw;
+  width: 100%;
   height: 5px;
   background-color: ${(props) => props.theme.black.lighter};
   bottom: 0;
@@ -111,8 +111,8 @@ const BigMovie = styled(motion.div)`
 
 const BigCover = styled.div`
   position: relative;
-  width: 40vw;
-  height: 35vh;
+  width: 100%;
+  height: 37%;
   background-size: cover;
   background-position: center center;
 `;
@@ -127,9 +127,10 @@ const BigTitle = styled.h3`
 
 const BigOverview = styled.p`
   position: relative;
-  top: -40vh;
+  top: -59vh;
   width: 12vw;
   right: -22vw;
+  font-size: 1vw;
 `;
 
 const Button = styled(motion.button)`
@@ -151,7 +152,7 @@ const Svg = styled(motion.svg)``;
 
 const BigDate = styled.span`
   position: relative;
-  top: -52vh;
+  top: -65vh;
   left: 22vw;
 
   font-weight: 600;
@@ -160,7 +161,7 @@ const BigDate = styled.span`
 
 const BigRating = styled.span`
   position: relative;
-  top: -46vh;
+  top: -62.5vh;
   left: 16.9vw;
   font-weight: 600;
   font-size: 1vw;
@@ -176,15 +177,21 @@ interface INumber {
 
 const BigPoster = styled.div<{ bgPhoto: string }>`
   position: relative;
-  width: 20vw;
-  height: 50vh;
+  width: 50%;
+  height: 70%;
   top: -8vh;
   right: -1vw;
   background-image: url(${(props) => props.bgPhoto});
   background-size: cover;
+  background-position: center center;
 `;
 
 export function TvList({ name, number, input, value, sliderHeight }: INumber) {
+  // useeffect -> window.onresize -> make a function that changes the number of offsets
+  //according to the screen size
+  // so useeffect is called whenever it detects a screen size change
+  // and change the number of columns when necessary
+
   const [slide, setSlide] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const toggleLeaving = () => setLeaving((prev) => !prev);
@@ -193,7 +200,7 @@ export function TvList({ name, number, input, value, sliderHeight }: INumber) {
     history.push(`/tv/${movieId}`);
   };
 
-  const offset = 6;
+  const [offset, setOffset] = useState(6);
 
   const overlayClick = () => history.push("/tv");
   const { scrollY } = useScroll();
@@ -229,6 +236,31 @@ export function TvList({ name, number, input, value, sliderHeight }: INumber) {
     }
   };
 
+  useEffect(() => {
+    const changeRows = () => {
+      const screenWidth = window.innerWidth;
+      if (screenWidth > 1400) {
+        setOffset(6);
+      } else if (screenWidth > 1130) {
+        setOffset(5);
+      } else if (screenWidth > 900) {
+        setOffset(4);
+      } else if (screenWidth > 680) {
+        setOffset(3);
+      } else if (screenWidth > 250) {
+        setOffset(2);
+      } else {
+        setOffset(1);
+      }
+    };
+    changeRows();
+    window.addEventListener("resize", changeRows);
+
+    // need to remove the eventlistener after being unmounted (when removed)
+    return () => window.removeEventListener("resize", changeRows);
+  }, []);
+  console.log(offset, "Hi");
+
   return (
     <div>
       <Slider style={{ top: sliderHeight }} className="first">
@@ -255,6 +287,7 @@ export function TvList({ name, number, input, value, sliderHeight }: INumber) {
           onExitComplete={toggleLeaving}
         >
           <Rows
+            offset={offset}
             style={{ top: number }}
             custom={back}
             key={slide}
@@ -320,7 +353,7 @@ export function TvList({ name, number, input, value, sliderHeight }: INumber) {
                   animate={{ opacity: 1, scale: 1, zIndex: 5000 }}
                   exit={{ scale: 0 }}
                   style={{
-                    top: scrollY.get() + 100,
+                    top: scrollY.get() + 50,
                   }}
                 >
                   <BigCover

@@ -56,8 +56,8 @@ const Wrapper = styled.div`
 
 const BigMovie = styled(motion.div)`
   position: absolute;
-  width: 40vw;
-  height: 90vh;
+  width: 40%;
+  height: 90%;
   border-radius: 30px;
   overflow: hidden;
   margin: 0 auto;
@@ -72,7 +72,7 @@ const BigMovie = styled(motion.div)`
 const BigCover = styled.div`
   position: relative;
   width: 40vw;
-  height: 35vh;
+  height: 37%;
   background-size: cover;
   background-position: center center;
 `;
@@ -87,9 +87,10 @@ const BigTitle = styled.h3`
 
 const BigOverview = styled.p`
   position: relative;
-  top: -40vh;
+  top: -55vh;
   width: 12vw;
   right: -22vw;
+  font-size: 1vw;
 `;
 
 const Overlay = styled(motion.div)`
@@ -132,8 +133,8 @@ const Svg = styled(motion.svg)``;
 
 const BigRating = styled.span`
   position: relative;
-  top: -46vh;
-  left: 22vw;
+  top: -57vh;
+  left: 17vw;
   font-weight: 600;
   font-size: 1vw;
 `;
@@ -141,11 +142,12 @@ const BigRating = styled.span`
 const BigPoster = styled.div<{ bgPhoto: string }>`
   position: relative;
   width: 20vw;
-  height: 50vh;
+  height: 70%;
   top: -8vh;
   right: -1vw;
   background-image: url(${(props) => props.bgPhoto});
   background-size: cover;
+  background-position: center center;
 `;
 
 const infoVar = {
@@ -157,6 +159,15 @@ const infoVar = {
     },
   },
 };
+
+const BigDate = styled.span`
+  position: relative;
+  top: -60vh;
+  left: 22vw;
+
+  font-weight: 600;
+  font-size: 1vw;
+`;
 
 const Info = styled(motion.div)`
   width: 16.7vw;
@@ -187,8 +198,6 @@ function Search() {
     ).then((response) => response.json());
   }
   const { data, isLoading } = useQuery<IMovies>(["result"], searchInfo);
-
-  const [checkImg, setCheckImg] = useState(false);
 
   const { scrollY } = useScroll();
 
@@ -307,7 +316,7 @@ function Search() {
                 <BigMovie
                   layoutId={movieMatch.params.id}
                   style={{
-                    top: scrollY.get() + 100,
+                    top: scrollY.get() + 50,
                   }}
                 >
                   {movieClick && (
@@ -324,6 +333,9 @@ function Search() {
                       <BigPoster
                         bgPhoto={imagePath(movieClick.poster_path) || ""}
                       ></BigPoster>
+                      <BigDate>
+                        {movieClick.first_air_date || movieClick.release_date}
+                      </BigDate>
                       <BigRating>
                         Rating:
                         {"⭐️".repeat(Math.floor(movieClick.vote_average / 2))}

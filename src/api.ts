@@ -7,8 +7,9 @@ export interface IResults {
   poster_path: string;
   title: string;
   overview: string;
-  release_date: string;
+  release_date?: string;
   vote_average: number;
+  first_air_date?: string;
 }
 
 export interface IMovies {

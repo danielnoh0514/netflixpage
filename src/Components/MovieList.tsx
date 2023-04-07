@@ -49,7 +49,7 @@ const boxVar = {
 };
 
 const Info = styled(motion.div)`
-  width: 16.7vw;
+  width: 100%;
   height: 5px;
   background-color: ${(props) => props.theme.black.lighter};
   bottom: 0;
@@ -97,7 +97,7 @@ const Overlay = styled(motion.div)`
 const BigMovie = styled(motion.div)`
   position: absolute;
   width: 40%;
-  height: 80%;
+  height: 90%;
   border-radius: 30px;
   overflow: hidden;
   margin: 0 auto;
@@ -113,7 +113,7 @@ const BigMovie = styled(motion.div)`
 const BigCover = styled.div`
   position: relative;
   width: 100%;
-  height: 50%;
+  height: 37%;
   background-size: cover;
   background-position: center center;
 `;
@@ -130,7 +130,7 @@ const BigOverview = styled.p`
   position: relative;
 
   top: -60%;
-  left: 43%;
+  left: 53%;
   width: 40%;
 
   font-size: 0.5rem;
@@ -156,7 +156,7 @@ const Svg = styled(motion.svg)``;
 const BigDate = styled.span`
   position: relative;
   top: -1vh;
-  left: 42.8%;
+  left: 52.8%;
   font-weight: 600;
   font-size: 1vw;
 `;
@@ -164,7 +164,7 @@ const BigDate = styled.span`
 const BigRating = styled.span`
   position: relative;
   top: 2vh;
-  left: 30%;
+  left: 40%;
   font-weight: 600;
   font-size: 1vw;
 `;
@@ -189,7 +189,7 @@ const BoxWrapper = styled.div`
 
 const BigPoster = styled.div<{ bgPhoto: string }>`
   position: relative;
-  width: 40%;
+  width: 50%;
   height: 70%;
   top: -10vh;
 

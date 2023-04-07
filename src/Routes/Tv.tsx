@@ -30,6 +30,39 @@ const Banner = styled.div<{ bgPhoto: string }>`
   background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)),
     url(${(props) => props.bgPhoto});
   background-size: cover;
+  @media (max-width: 1300px) {
+    height: 90vh;
+    font-size: 1vw;
+    background-size: cover;
+  }
+
+  @media (max-width: 1250px) {
+    height: 80vh;
+  }
+
+  @media (max-width: 1150px) {
+    height: 70vh;
+  }
+
+  @media (max-width: 1000px) {
+    height: 60vh;
+  }
+
+  @media (max-width: 950px) {
+    height: 50vh;
+  }
+
+  @media (max-width: 800px) {
+    height: 40vh;
+  }
+
+  @media (max-width: 530px) {
+    height: 30vh;
+  }
+
+  @media (max-width: 400px) {
+    height: 20vh;
+  }
 `;
 const Title = styled.h2`
   position: absolute;
@@ -38,6 +71,43 @@ const Title = styled.h2`
 
   font-size: 3.2vw;
   font-weight: 800;
+  @media (max-width: 1300px) {
+    font-size: 5vw;
+  }
+
+  @media (max-width: 1250px) {
+    font-size: 5vw;
+  }
+
+  @media (max-width: 1150px) {
+    font-size: 5vw;
+    top: 25vh;
+  }
+
+  @media (max-width: 1000px) {
+    font-size: 5vw;
+    top: 25vh;
+  }
+
+  @media (max-width: 950px) {
+    font-size: 5vw;
+    top: 25vh;
+  }
+
+  @media (max-width: 800px) {
+    font-size: 5vw;
+    top: 15vh;
+  }
+
+  @media (max-width: 530px) {
+    font-size: 5vw;
+    top: 10vh;
+  }
+
+  @media (max-width: 400px) {
+    font-size: 5vw;
+    top: 8vh;
+  }
 `;
 
 const Overview = styled.p`
@@ -46,6 +116,45 @@ const Overview = styled.p`
   font-size: 25px;
   width: 30vw;
   font-weight: 600;
+  @media (max-width: 1300px) {
+    font-size: 1.3vw;
+    top: 50vh;
+  }
+
+  @media (max-width: 1250px) {
+    font-size: 1.3vw;
+    top: 50vh;
+  }
+
+  @media (max-width: 1150px) {
+    font-size: 1.3vw;
+    top: 40vh;
+  }
+
+  @media (max-width: 1000px) {
+    font-size: 1.3vw;
+    top: 40vh;
+  }
+
+  @media (max-width: 950px) {
+    font-size: 1.3vw;
+    top: 35vh;
+  }
+
+  @media (max-width: 800px) {
+    font-size: 1.5vw;
+    top: 23vh;
+  }
+
+  @media (max-width: 530px) {
+    font-size: 1.5vw;
+    top: 15vh;
+  }
+
+  @media (max-width: 400px) {
+    font-size: 1.5vw;
+    top: 12vh;
+  }
 `;
 
 const Loader = styled.div`
@@ -99,6 +208,7 @@ function Tv() {
             number={0}
             input={getLatestTv}
             value={0}
+            key={0}
           />
 
           <Span style={{ top: 250 }}>Latest</Span>
@@ -108,6 +218,7 @@ function Tv() {
             number={130}
             input={getAiringTv}
             value={1}
+            key={1}
           />
 
           <Span style={{ top: 500 }}>Popular</Span>
@@ -117,6 +228,7 @@ function Tv() {
             number={260}
             input={getPopularTv}
             value={2}
+            key={2}
           />
 
           <Span style={{ top: 750 }}>Top Rated</Span>
@@ -126,6 +238,7 @@ function Tv() {
             number={390}
             input={getTopRatedTv}
             value={2}
+            key={3}
           />
         </>
       )}
